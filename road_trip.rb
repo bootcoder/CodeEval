@@ -24,7 +24,8 @@
 
 distances = []
 
-File.open(ARGV[0]).each_line do |line|
+File.open('input_sample.txt').each_line do |line|
+# File.open(ARGV[0]).each_line do |line|
   trip = []
   line = line.chomp.split(";")
   line.each do |city|
@@ -39,9 +40,8 @@ distances.each do |trip|
   # city_difference = "#{starting_point},"
   city_difference = [sorted_trip[0]]
   for i in 0..sorted_trip.length do
-    break city_difference if sorted_trip[i+1] == nil
-    segment = sorted_trip[i+1] - sorted_trip[i] unless sorted_trip[i+1] == nil
-    city_difference << segment
+    break if sorted_trip[i+1] == nil
+    city_difference << sorted_trip[i+1] - sorted_trip[i] unless sorted_trip[i+1] == nil
   end
   puts city_difference.join(",")
 end
