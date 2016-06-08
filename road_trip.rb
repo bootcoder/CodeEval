@@ -22,7 +22,7 @@
 # 1240,2344,1779,357,279
 # 2683,2553
 
-distances = []
+all_trips = []
 
 File.open('input_sample.txt').each_line do |line|
 # File.open(ARGV[0]).each_line do |line|
@@ -31,29 +31,15 @@ File.open('input_sample.txt').each_line do |line|
   line.each do |city|
     trip << city.split(",")[1].to_i
   end
-  distances << trip
+  all_trips << trip
 end
 
-distances.each do |trip|
-  sorted_trip = trip.sort_by { |x| x.to_i }
-  # starting_point = sorted_trip.shift
-  # city_difference = "#{starting_point},"
-  city_difference = [sorted_trip[0]]
-  for i in 0..sorted_trip.length do
-    break if sorted_trip[i+1] == nil
-    city_difference << sorted_trip[i+1] - sorted_trip[i] unless sorted_trip[i+1] == nil
+all_trips.each do |trip|
+  trip.sort!
+  city_difference = [trip[0]]
+  for i in 0..trip.length do
+    break if trip[i+1] == nil
+    city_difference << trip[i+1] - trip[i]
   end
   puts city_difference.join(",")
 end
-
-
-
-
-
-
-
-
-
-
-
-
