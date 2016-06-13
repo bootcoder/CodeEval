@@ -1,29 +1,23 @@
-var results = "";
-var toUpCase = false;
 var fs  = require("fs");
 
-var swapCase = function(element){
-  if(!toUpCase){
-    toUpCase = !toUpCase
-    return element.toUpperCase();
-  }else{
-    toUpCase = !toUpCase
-    return element.toLowerCase();
-  }
-}
-
-var checkCase = function(element, index, array){
-  if(/^[a-zA-Z]+$/.test(element)){
-    results += swapCase(element);
-  }else{
-    results += element;
-  }
-}
 fs.readFileSync('input_sample.txt').toString().split('\n').forEach(function (line) {
 // fs.readFileSync(process.argv[2]).toString().split('\n').forEach(function (line) {
-    if (line != "") {
-      results = "";
-      line.split("").forEach(checkCase);
+    var results = "";
+    var toUpCase = true;
+    if (line !== "") {
+      var splitLine = line.split("")
+      for(var i in splitLine){
+        if(/^[a-zA-Z]+$/.test(splitLine[i])){
+          toUpCase = !toUpCase
+          if(!toUpCase){
+            results += splitLine[i].toUpperCase();
+          }else{
+          results += splitLine[i].toLowerCase();
+          }
+        }else{
+          results += splitLine[i];
+        }
+      }
       console.log(results);
     }
 });
